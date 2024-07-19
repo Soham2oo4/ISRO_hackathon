@@ -19,14 +19,14 @@ where:
 
 ## 2. Subspace Representation
 
-HSI data are assumed to lie in a lower-dimensional subspace S<sub>k</sub> with dimension `k` (where `k << n<sub>b</sub>`). Represent `X` in this subspace:<br>
+HSI data are assumed to lie in a lower-dimensional subspace S<sub>k</sub> with dimension `k` (where k << n<sub>b</sub>). Represent `X` in this subspace:<br>
 <img width="67" alt="image" src="https://github.com/user-attachments/assets/feb4763f-6088-4633-a3f1-58fb4ebc5307"><br>
 
 where:
 - `E` ∈ ℝ<sup>n<sub>b</sub> × k</sup> contains the basis vectors for S<sub>k</sub>.
 - `Z` ∈ ℝ<sup>k × n</sup> holds the representation coefficients.
 
-Assuming `E` is semiunitary: `E<sup>T</sup>E = I<sub>k</sub>`.
+Assuming `E` is semiunitary: E<sup>T</sup>E = I<sub>k</sub>.
 
 ## 3. Subspace Learning Against Mixed Noise
 
