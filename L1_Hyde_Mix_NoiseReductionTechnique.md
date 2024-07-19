@@ -1,5 +1,5 @@
 ## These are your results
-After Applying Hyperspectral Mixed Noise Removal By L1-Norm-Based Subspace Representation from this [research paper](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9040508) we got the following results <br>
+After Applying Hyperspectral Mixed Noise Removal By L1-Norm-Based Subspace Representation from this [research paper](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9040508) we got the following **results** <br><br>
 <img width="300" alt="image" src="https://github.com/user-attachments/assets/748d9716-95e3-431f-b878-9f7125238948">
 <img width="300" alt="image" src="https://github.com/user-attachments/assets/9d8353d6-a2fa-4b44-bba2-97f8b4949a2b"><br>
 Manual Mixed noise (Gaussian and Thermal Noise) is added to the original image and then denoised. The above are the results.
@@ -47,11 +47,77 @@ where:
 th = sort(Y - Y<sub>med</sub>, p)
 
 
-Here, `sort(X, p)` returns the `⌊n<sub>b</sub> × n × p⌋`-th largest value in `X`, with `p` being the percentage of pixels suspected to be affected by impulse noise and stripes.
+Here, `sort(X, p)` returns the ⌊n<sub>b</sub> × n × p⌋ -th largest value in `X`, with `p` being the percentage of pixels suspected to be affected by impulse noise and stripes.
 
 ### 3.3 Noise Whitening
 
-To handle non-i.i.d. Gaussian noise, whiten the noise in the coarse image `&#x3C9;` and observed image `Y`:
+To handle non-i.i.d. Gaussian noise, whiten the noise in the coarse image &#x3C9; and observed image `Y`:
+ω = C<sub>λ</sub><sup>-1</sup> ω
+Y = C<sub>λ</sub><sup>-1</sup> Y
+
+where C<sub>&#x3bb;</sub> is the noise covariance matrix, and C<sub>&#x3bb;</sub><sup>-1</sup> is its inverse.
+
+## 4. Cost Function
+
+Estimate `Z` by minimizing the following cost function:
+Z* = argmin<sub>Z</sub> ||Y - EZ||<sub>1,1</sub> + λφ(Z)
+
+
+where:
+- ||·||<sub>1,1</sub> denotes the entry-wise L<sub>1</sub>-norm.
+- &#x3c6;(Z) is a regularization term.
+
+## 5. Algorithm: Alternating Direction Method of Multipliers (ADMM)
+
+The optimization problem is transformed into a constrained form:
+min<sub>Z, V</sub> ||V||<sub>1,1</sub> + λφ(Z)
+subject to: Y - EZ = V
+
+
+The augmented Lagrangian function is:
+L(Z, V, D) = ||V||<sub>1,1</sub> + λφ(Z) + (μ/2) ||Y - EZ - V + (1/μ) D||<sub>F</sub><sup>2</sup>
+
+
+where &#x3bc; > 0 is the ADMM penalty parameter.
+
+The ADMM algorithm proceeds with the following steps:
+
+1. Initialize `t = 0`, choose &#x3bc; > 0, V<sub>0</sub>, D<sub>0</sub>.
+2. Repeat until convergence:
+   - Update Z:
+
+     
+     Z<sub>t+1</sub> = argmin<sub>Z</sub> &#x3bb;&#x3c6;(Z) + (&#x3bc;/2) ||Y - EZ - V<sub>t</sub> + (1/&#x3bc;) D<sub>t</sub>||<sub>F</sub><sup>2</sup>
+     
+
+   - Update V:
+
+     
+     V<sub>t+1</sub> = argmin<sub>V</sub> ||V||<sub>1,1</sub> + (&#x3bc;/2) ||Y - EZ<sub>t+1</sub> - V + (1/&#x3bc;) D<sub>t</sub>||<sub>F</sub><sup>2</sup>
+     
+
+   - Update D:
+
+     D<sub>t+1</sub> = D<sub>t</sub> + &#x3bc;(Y - EZ<sub>t+1</sub> - V<sub>t+1</sub>)
+
+3. Increment `t`.
+
+After obtaining `Z*`, estimate the denoised image:
+X* = EZ*
+Convert back to the original image space:
+X* = ΠC<sub>λ</sub>X*
+
+## Summary
+
+The algorithm involves:
+1. **Preprocessing** to handle mixed noise.
+2. **Whitening** to manage non-i.i.d. Gaussian noise.
+3. **Optimization** using ADMM to estimate the subspace coefficients \(Z\).
+4. **Restoration** of the hyperspectral image from the estimated coefficients.
+
+
+
+
 
 
 
