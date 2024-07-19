@@ -12,3 +12,5 @@ where: <br>
 X is the true hyperspectral image. <br>
 N is the additive mixed noise, including Gaussian noise, impulse noise, and stripes.
 
+### 2. Subspace Representation
+HSI data are assumed to lie in a lower-dimensional subspace S<sub>k</sub>
