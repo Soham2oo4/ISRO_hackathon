@@ -6,15 +6,36 @@ Manual Mixed noise (Gaussian and Thermal Noise) is added to the original image a
 ## The algorithm for the following is given below
 # Hyperspectral Image Restoration Algorithm
 
+# Hyperspectral Image Restoration Algorithm
+
 ## 1. Observation Model
 
-The observed hyperspectral image \(Y\) is modeled as:
-
-\[ Y = X + N \]
+The observed hyperspectral image `Y` is modeled as:<br>
+<img width="67" alt="image" src="https://github.com/user-attachments/assets/ce4753d2-ccfc-4678-aeeb-0aa9651832cf"><br>
 
 where:
-- \(X\) is the true hyperspectral image.
-- \(N\) is the additive mixed noise, including Gaussian noise, impulse noise, and stripes.
+- `X` is the true hyperspectral image.
+- `N` is the additive mixed noise, including Gaussian noise, impulse noise, and stripes.
+
+## 2. Subspace Representation
+
+HSI data are assumed to lie in a lower-dimensional subspace S<sub>k</sub> with dimension `k` (where `k << n<sub>b</sub>`). Represent `X` in this subspace:<br>
+<img width="67" alt="image" src="https://github.com/user-attachments/assets/feb4763f-6088-4633-a3f1-58fb4ebc5307"><br>
+
+where:
+- `E` ∈ ℝ<sup>n<sub>b</sub> × k</sup> contains the basis vectors for S<sub>k</sub>.
+- `Z` ∈ ℝ<sup>k × n</sup> holds the representation coefficients.
+
+Assuming `E` is semiunitary: `E<sup>T</sup>E = I<sub>k</sub>`.
+
+## 3. Subspace Learning Against Mixed Noise
+
+### 3.1 Median Filtering
+
+To remove impulse noise and stripes, apply an adaptive median filter to `Y`:
+
+
+
 
 ## 2. Subspace Representation
 
