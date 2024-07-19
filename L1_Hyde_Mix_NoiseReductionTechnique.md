@@ -37,5 +37,23 @@ where `med(·)` denotes the median filtering operation applied to each spectral 
 ### 3.2 Coarse Image Estimation
 
 Estimate the coarse image `&#x3C9;` by replacing values affected by impulse noise and stripes with median-filtered values:
+ω<sub>ij</sub> =
+if (y<sub>ij</sub> - y<sub>med,ij</sub>)<sup>2</sup> < th then
+y<sub>ij</sub>
+else
+y<sub>med,ij</sub>
+where:
+- `th` is a threshold computed as:<br>
+th = sort(Y - Y<sub>med</sub>, p)
+
+
+Here, `sort(X, p)` returns the `⌊n<sub>b</sub> × n × p⌋`-th largest value in `X`, with `p` being the percentage of pixels suspected to be affected by impulse noise and stripes.
+
+### 3.3 Noise Whitening
+
+To handle non-i.i.d. Gaussian noise, whiten the noise in the coarse image `&#x3C9;` and observed image `Y`:
+
+
+
 
 
