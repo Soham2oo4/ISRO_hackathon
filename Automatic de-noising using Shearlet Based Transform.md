@@ -17,6 +17,16 @@
 
    - Median of \( \overline{R}_k \) is used as a threshold to classify as LGN or mixed noise.
 
+     ##### Output of Step 1
+     <img width="258" alt="image" src="https://github.com/user-attachments/assets/c45eaffa-1d3e-4ad8-8949-7830eb659d15"><br>
+     .<br>
+     .<br>
+     .<br>
+     .<br>
+     <img width="258" alt="image" src="https://github.com/user-attachments/assets/164e9600-257d-419c-acfd-d8bdcf0458dc"><br>
+     #### The correlation Graph looks like this<br>
+      <img width="300" alt="image" src="https://github.com/user-attachments/assets/90701137-74b5-46ca-9ef5-d6ec116d848e">
+
 ### Step 2: Shearlet Transform
 
 1. **Input:** Image planes classified as LGN or mixed noise.
